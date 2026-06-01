@@ -1,0 +1,41 @@
+# ============================================================
+# SAIRN IQ Enterprise — Docker Compose
+# For production deployment with multiple replicas
+# ============================================================
+
+version: '3.8'
+
+services:
+  sairniq:
+    image: sairntechnologies/sairniq:latest
+    build: .
+    container_name: sairn-iq
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - COMPANY_NAME=${COMPANY_NAME}
+      - COMPANY_INDUSTRY=${COMPANY_INDUSTRY}
+      - NODE_ENV=production
+      - RATE_LIMIT_MAX=100
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+      - AUDIT_LOG_ENABLED=true
+    volumes:
+      - ./logs:/app/logs
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+
+volumes:
+  logs:

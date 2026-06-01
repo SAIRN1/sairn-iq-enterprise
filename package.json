@@ -1,0 +1,25 @@
+{
+  "name": "sairn-iq-enterprise",
+  "version": "1.0.0",
+  "description": "SAIRN IQ Enterprise Intelligence Platform — Docker Container",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
+    "@supabase/supabase-js": "^2.39.0",
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.3.1",
+    "winston": "^3.11.0"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "Michael L. Dibert <support@sairntechnologies.com>",
+  "license": "UNLICENSED"
+}
